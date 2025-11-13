@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mandaguari Saúde</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset e variáveis */
+        :root {
+            --primary: #2563eb;
+            --primary-light: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --light: #f8fafc;
+            --light-gray: #f1f5f9;
+            --gray: #64748b;
+            --dark: #1e293b;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 1rem 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .logo-text span {
+            color: var(--primary);
+        }
+
+        .desktop-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .desktop-nav a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .desktop-nav a:hover, .desktop-nav a.active {
+            color: var(--primary);
+        }
+
+        .desktop-nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            border-radius: 0 0 var(--radius) var(--radius);
+            margin-bottom: 3rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Main Content */
+        main {
+            padding: 2rem 0 5rem;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--dark);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        /* Cards de Notícias */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .news-image {
+            height: 180px;
+            background: var(--light-gray);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .news-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.1) 100%);
+        }
+
+        .news-content {
+            padding: 1.5rem;
+        }
+
+        .news-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .news-date {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .news-excerpt {
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Formulários */
+        .form-container {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .btn-block {
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Mensagens de confirmação */
+        .confirmation {
+            display: none;
+            background: var(--light);
+            border-left: 4px solid var(--secondary);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .confirmation i {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .confirmation h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        /* Menu Mobile */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100%;
+            background: white;
+            z-index: 1000;
+            transition: var(--transition);
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .close-menu {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+        }
+
+        .mobile-nav ul {
+            list-style: none;
+        }
+
+        .mobile-nav li {
+            margin-bottom: 1rem;
+        }
+
+        .mobile-nav a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 1rem;
+            text-decoration: none;
+            color: var(--dark);
+            border-radius: 8px;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .mobile-nav a:hover, .mobile-nav a.active {
+            background: var(--light-gray);
+            color: var(--primary);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* Menu Inferior Mobile */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 0.75rem 0;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 90;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--gray);
+            font-size: 0.8rem;
+            flex: 1;
+            padding: 0.5rem 0;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .nav-item i {
+            font-size: 1.2rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        /* Informações */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .info-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .info-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .info-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .info-card h3 i {
+            color: var(--primary);
+        }
+
+        .info-card p {
+            margin-bottom: 0.75rem;
+            color: var(--gray);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo .logo-icon {
+            width: 36px;
+            height: 36px;
+            font-size: 1rem;
+        }
+
+        .footer-logo h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .footer-links h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .desktop-nav {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .page-title {
+                font-size: 1.75rem;
+            }
+
+            .form-container {
+                padding: 1.5rem;
+            }
+
+            body {
+                padding-bottom: 70px;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .bottom-nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Overlay para menu mobile -->
+    <div class="overlay" id="overlay"></div>
+    
+    <!-- Menu Mobile -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="menu-header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-hospital"></i>
+                </div>
+                <div class="logo-text">Mandaguari<span>Saúde</span></div>
+            </div>
+            <button class="close-menu" id="closeMenu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="mobile-nav">
+            <ul>
+                <li><a href="#" class="nav-link active" data-page="home"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#" class="nav-link" data-page="agendar-consulta"><i class="fas fa-stethoscope"></i> Agendar Consulta</a></li>
+                <li><a href="#" class="nav-link" data-page="agendar-exame"><i class="fas fa-vial"></i> Agendar Exame</a></li>
+                <li><a href="#" class="nav-link" data-page="agendar-dentista"><i class="fas fa-tooth"></i> Agendar Dentista</a></li>
+                <li><a href="#" class="nav-link" data-page="informacoes"><i class="fas fa-info-circle"></i> Informações</a></li>
+            </ul>
+        </nav>
+    </div>
+    
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-hospital"></i>
+                </div>
+                <div class="logo-text">Mandaguari<span>Saúde</span></div>
+            </div>
+            <nav class="desktop-nav">
+                <ul>
+                    <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
+                    <li><a href="#" class="nav-link" data-page="agendar-consulta">Consulta</a></li>
+                    <li><a href="#" class="nav-link" data-page="agendar-exame">Exames</a></li>
+                    <li><a href="#" class="nav-link" data-page="agendar-dentista">Dentista</a></li>
+                    <li><a href="#" class="nav-link" data-page="informacoes">Informações</a></li>
+                </ul>
+            </nav>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <h1>Cuidando da saúde de Mandaguari</h1>
+            <p>Agendamento de consultas, exames e atendimento odontológico para todas as regiões do município</p>
+            <a href="#" class="btn" data-page="agendar-consulta">Agendar Consulta</a>
+        </div>
+    </section>
+    
+    <main class="container">
+        <!-- Página Home -->
+        <section id="home" class="page active">
+            <h2 class="page-title">Notícias de Saúde</h2>
+            
+            <div class="news-grid">
+                <div class="news-card">
+                    <div class="news-image" style="background: linear-gradient(135deg, #4caf50, #81c784);"></div>
+                    <div class="news-content">
+                        <h3 class="news-title">Campanha de Vacinação contra a Gripe</h3>
+                        <p class="news-date"><i class="far fa-calendar"></i> 15 de Maio, 2023</p>
+                        <p class="news-excerpt">A prefeitura de Mandaguari inicia campanha de vacinação contra a gripe para grupos prioritários. Confira os locais e horários.</p>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="news-image" style="background: linear-gradient(135deg, #2196f3, #64b5f6);"></div>
+                    <div class="news-content">
+                        <h3 class="news-title">Novo Centro de Saúde no Jardim Cristina</h3>
+                        <p class="news-date"><i class="far fa-calendar"></i> 10 de Maio, 2023</p>
+                        <p class="news-excerpt">Foi inaugurado o novo centro de saúde no Jardim Cristina, oferecendo atendimento médico e odontológico para a região.</p>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="news-image" style="background: linear-gradient(135deg, #ff9800, #ffb74d);"></div>
+                    <div class="news-content">
+                        <h3 class="news-title">Dicas para uma Alimentação Saudável</h3>
+                        <p class="news-date"><i class="far fa-calendar"></i> 5 de Maio, 2023</p>
+                        <p class="news-excerpt">A Secretaria de Saúde preparou um guia com dicas para uma alimentação saudável durante o outono/inverno.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Página Agendar Consulta -->
+        <section id="agendar-consulta" class="page">
+            <h2 class="page-title">Agendar Consulta Médica</h2>
+            <div class="form-container">
+                <form id="form-consulta">
+                    <div class="form-group">
+                        <label for="nome-consulta" class="form-label">Nome Completo</label>
+                        <input type="text" id="nome-consulta" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cpf-consulta" class="form-label">CPF</label>
+                        <input type="text" id="cpf-consulta" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="telefone-consulta" class="form-label">Telefone</label>
+                        <input type="tel" id="telefone-consulta" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="regiao-consulta" class="form-label">Região</label>
+                        <select id="regiao-consulta" class="form-control" required>
+                            <option value="">Selecione sua região</option>
+                            <option value="centro">Centro</option>
+                            <option value="esplanada">Esplanada</option>
+                            <option value="5-conjuntos">5 Conjuntos</option>
+                            <option value="boa-vista">Boa Vista</option>
+                            <option value="jardim-cristina">Jardim Cristina</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="data-consulta" class="form-label">Data Preferencial</label>
+                        <input type="date" id="data-consulta" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="especialidade-consulta" class="form-label">Especialidade Médica</label>
+                        <select id="especialidade-consulta" class="form-control" required>
+                            <option value="">Selecione a especialidade</option>
+                            <option value="clinico-geral">Clínico Geral</option>
+                            <option value="pediatria">Pediatria</option>
+                            <option value="ginecologia">Ginecologia</option>
+                            <option value="cardiologia">Cardiologia</option>
+                            <option value="dermatologia">Dermatologia</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="fas fa-calendar-check"></i> Agendar Consulta
+                    </button>
+                </form>
+                
+                <div id="confirmacao-consulta" class="confirmation">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Consulta Agendada com Sucesso!</h3>
+                    <p>Em breve entraremos em contato para confirmar o agendamento.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Página Agendar Exame -->
+        <section id="agendar-exame" class="page">
+            <h2 class="page-title">Agendar Exame</h2>
+            <div class="form-container">
+                <form id="form-exame">
+                    <div class="form-group">
+                        <label for="nome-exame" class="form-label">Nome Completo</label>
+                        <input type="text" id="nome-exame" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cpf-exame" class="form-label">CPF</label>
+                        <input type="text" id="cpf-exame" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="telefone-exame" class="form-label">Telefone</label>
+                        <input type="tel" id="telefone-exame" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="regiao-exame" class="form-label">Região</label>
+                        <select id="regiao-exame" class="form-control" required>
+                            <option value="">Selecione sua região</option>
+                            <option value="centro">Centro</option>
+                            <option value="esplanada">Esplanada</option>
+                            <option value="5-conjuntos">5 Conjuntos</option>
+                            <option value="boa-vista">Boa Vista</option>
+                            <option value="jardim-cristina">Jardim Cristina</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="data-exame" class="form-label">Data Preferencial</label>
+                        <input type="date" id="data-exame" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="tipo-exame" class="form-label">Tipo de Exame</label>
+                        <select id="tipo-exame" class="form-control" required>
+                            <option value="">Selecione o tipo de exame</option>
+                            <option value="sangue">Exame de Sangue</option>
+                            <option value="urina">Exame de Urina</option>
+                            <option value="raio-x">Raio-X</option>
+                            <option value="ultrassom">Ultrassom</option>
+                            <option value="eletrocardiograma">Eletrocardiograma</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="fas fa-vial"></i> Agendar Exame
+                    </button>
+                </form>
+                
+                <div id="confirmacao-exame" class="confirmation">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Exame Agendado com Sucesso!</h3>
+                    <p>Em breve entraremos em contato para confirmar o agendamento.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Página Agendar Dentista -->
+        <section id="agendar-dentista" class="page">
+            <h2 class="page-title">Agendar Consulta Odontológica</h2>
+            <div class="form-container">
+                <form id="form-dentista">
+                    <div class="form-group">
+                        <label for="nome-dentista" class="form-label">Nome Completo</label>
+                        <input type="text" id="nome-dentista" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cpf-dentista" class="form-label">CPF</label>
+                        <input type="text" id="cpf-dentista" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="telefone-dentista" class="form-label">Telefone</label>
+                        <input type="tel" id="telefone-dentista" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="regiao-dentista" class="form-label">Região</label>
+                        <select id="regiao-dentista" class="form-control" required>
+                            <option value="">Selecione sua região</option>
+                            <option value="centro">Centro</option>
+                            <option value="esplanada">Esplanada</option>
+                            <option value="5-conjuntos">5 Conjuntos</option>
+                            <option value="boa-vista">Boa Vista</option>
+                            <option value="jardim-cristina">Jardim Cristina</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="data-dentista" class="form-label">Data Preferencial</label>
+                        <input type="date" id="data-dentista" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="tipo-consulta-dentista" class="form-label">Tipo de Consulta</label>
+                        <select id="tipo-consulta-dentista" class="form-control" required>
+                            <option value="">Selecione o tipo de consulta</option>
+                            <option value="consulta-rotina">Consulta de Rotina</option>
+                            <option value="limpeza">Limpeza</option>
+                            <option value="tratamento-canal">Tratamento de Canal</option>
+                            <option value="extração">Extração</option>
+                            <option value="restauracao">Restauração</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="fas fa-tooth"></i> Agendar Consulta Odontológica
+                    </button>
+                </form>
+                
+                <div id="confirmacao-dentista" class="confirmation">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Consulta Odontológica Agendada com Sucesso!</h3>
+                    <p>Em breve entraremos em contato para confirmar o agendamento.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Página Informações -->
+        <section id="informacoes" class="page">
+            <h2 class="page-title">Informações de Saúde</h2>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3><i class="fas fa-map-marker-alt"></i> Unidades de Saúde por Região</h3>
+                    <p><strong>Centro:</strong> Posto de Saúde Central - Rua Principal, 123</p>
+                    <p><strong>Esplanada:</strong> UBS Esplanada - Av. das Flores, 456</p>
+                    <p><strong>5 Conjuntos:</strong> UBS 5 Conjuntos - Rua das Palmeiras, 789</p>
+                    <p><strong>Boa Vista:</strong> UBS Boa Vista - Rua dos Pinheiros, 321</p>
+                    <p><strong>Jardim Cristina:</strong> UBS Jardim Cristina - Av. dos Ipês, 654</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-clock"></i> Horários de Atendimento</h3>
+                    <p><strong>Segunda a Sexta:</strong> 7h às 17h</p>
+                    <p><strong>Sábados:</strong> 7h às 12h (apenas emergências)</p>
+                    <p><strong>Plantão 24h:</strong> Hospital Municipal</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-phone-alt"></i> Telefones Úteis</h3>
+                    <p><strong>SAMU:</strong> 192</p>
+                    <p><strong>Disque Saúde:</strong> 136</p>
+                    <p><strong>Secretaria Municipal de Saúde:</strong> (44) 3233-1234</p>
+                    <p><strong>Hospital Municipal:</strong> (44) 3233-5678</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Menu Inferior Mobile -->
+    <nav class="bottom-nav">
+        <button class="nav-item active" data-page="home">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </button>
+        <button class="nav-item" data-page="agendar-consulta">
+            <i class="fas fa-stethoscope"></i>
+            <span>Consulta</span>
+        </button>
+        <button class="nav-item" data-page="agendar-exame">
+            <i class="fas fa-vial"></i>
+            <span>Exame</span>
+        </button>
+        <button class="nav-item" data-page="agendar-dentista">
+            <i class="fas fa-tooth"></i>
+            <span>Dentista</span>
+        </button>
+        <button class="nav-item" data-page="informacoes">
+            <i class="fas fa-info-circle"></i>
+            <span>Info</span>
+        </button>
+    </nav>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-hospital"></i>
+                        </div>
+                        <h2>Mandaguari Saúde</h2>
+                    </div>
+                    <p>Cuidando da saúde da população de Mandaguari com agendamentos simplificados e atendimento de qualidade.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Links Rápidos</h3>
+                    <ul>
+                        <li><a href="#" data-page="home">Home</a></li>
+                        <li><a href="#" data-page="agendar-consulta">Agendar Consulta</a></li>
+                        <li><a href="#" data-page="agendar-exame">Agendar Exame</a></li>
+                        <li><a href="#" data-page="agendar-dentista">Agendar Dentista</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Contato</h3>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> (44) 3233-1234</li>
+                        <li><i class="fas fa-envelope"></i> saude@mandaguari.pr.gov.br</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Prefeitura Municipal</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Mandaguari Saúde. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Elementos do DOM
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeMenu = document.getElementById('closeMenu');
+        const overlay = document.getElementById('overlay');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const bottomNavItems = document.querySelectorAll('.nav-item');
+        const heroBtn = document.querySelector('.hero .btn');
+        
+        // Abrir menu mobile
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        // Fechar menu mobile
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        closeMenu.addEventListener('click', closeMobileMenu);
+        overlay.addEventListener('click', closeMobileMenu);
+        
+        // Navegação entre páginas
+        function navigateToPage(pageId) {
+            // Oculta todas as páginas
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Mostra a página selecionada
+            document.getElementById(pageId).classList.add('active');
+            
+            // Atualiza o menu ativo
+            navLinks.forEach(link => {
+                if (link.getAttribute('data-page') === pageId) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+            
+            // Atualiza o menu inferior ativo
+            bottomNavItems.forEach(item => {
+                if (item.getAttribute('data-page') === pageId) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+            
+            // Fecha o menu mobile se estiver aberto
+            closeMobileMenu();
+            
+            // Scroll para o topo
+            window.scrollTo(0, 0);
+        }
+        
+        // Adiciona eventos de clique aos links de navegação
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const pageId = link.getAttribute('data-page');
+                navigateToPage(pageId);
+            });
+        });
+        
+        // Adiciona eventos de clique aos itens do menu inferior
+        bottomNavItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const pageId = item.getAttribute('data-page');
+                navigateToPage(pageId);
+            });
+        });
+        
+        // Botão do hero
+        heroBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const pageId = heroBtn.getAttribute('data-page');
+            navigateToPage(pageId);
+        });
+        
+        // Formulários
+        document.getElementById('form-consulta').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('confirmacao-consulta').style.display = 'block';
+            setTimeout(() => {
+                this.reset();
+                document.getElementById('confirmacao-consulta').style.display = 'none';
+            }, 4000);
+        });
+        
+        document.getElementById('form-exame').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('confirmacao-exame').style.display = 'block';
+            setTimeout(() => {
+                this.reset();
+                document.getElementById('confirmacao-exame').style.display = 'none';
+            }, 4000);
+        });
+        
+        document.getElementById('form-dentista').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('confirmacao-dentista').style.display = 'block';
+            setTimeout(() => {
+                this.reset();
+                document.getElementById('confirmacao-dentista').style.display = 'none';
+            }, 4000);
+        });
+        
+        // Configurar datas mínimas para os campos de data
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        
+        const minDate = tomorrow.toISOString().split('T')[0];
+        
+        document.getElementById('data-consulta').min = minDate;
+        document.getElementById('data-exame').min = minDate;
+        document.getElementById('data-dentista').min = minDate;
+    </script>
+</body>
+</html>
